@@ -1,26 +1,161 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff; /* White */
+  --foreground: #333333; /* Dark gray text instead of pure black */
+  --primary: #2E7D32; /* Green */
+  --primary-light: #4CAF50;
+  --primary-dark: #1B5E20;
+  --accent: #FF5722; /* Orange */
+  --accent-light: #FF7043;
+  --accent-dark: #E64A19;
+  --secondary: #D32F2F; /* Red */
+  --secondary-light: #EF5350;
+  --secondary-dark: #B71C1C;
+  --highlight: #333333; /* Dark gray */
+  --highlight-light: #555555;
+  --highlight-dark: #111111;
+
+  /* Custom Box Shadow Variables */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-2xl: 0 16px 32px rgba(0, 0, 0, 0.15);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-elevated: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Make all buttons and interactive elements have pointer cursor */
+button,
+a,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+.btn,
+[role="button"],
+select,
+summary,
+.cursor-pointer {
+  cursor: pointer;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-highlight: var(--highlight);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Disabled dark mode to maintain white background with black text
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
+*/
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Custom Box Shadow Classes */
+.shadow-custom-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-custom-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-custom-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-custom-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+.shadow-custom-2xl {
+  box-shadow: var(--shadow-2xl);
+}
+
+.shadow-custom-inner {
+  box-shadow: var(--shadow-inner);
+}
+
+.shadow-custom-card {
+  box-shadow: var(--shadow-card);
+}
+
+.shadow-custom-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+
+.shadow-custom-hover {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.shadow-custom-hover:hover {
+  box-shadow: var(--shadow-hover);
 }
