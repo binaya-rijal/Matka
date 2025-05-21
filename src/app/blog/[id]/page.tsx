@@ -4,15 +4,16 @@ import Link from "next/link";
 import { getBlogPostById, blogPosts, getRecentBlogPosts } from "@/data/blog";
 import { notFound } from "next/navigation";
 
-type BlogPostPageProps = {
+// Fix the type definition to match Next.js 15 requirements
+interface PageProps {
   params: {
     id: string;
   };
-};
+}
 
 export async function generateMetadata({
   params,
-}: BlogPostPageProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const post = getBlogPostById(params.id);
 
   if (!post) {
@@ -33,7 +34,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
+export default function BlogPostPage({ params }: PageProps) {
   const { id } = params;
   const blogPost = getBlogPostById(id);
   
@@ -299,6 +300,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     </div>
   );
 }
+
 
 
 
