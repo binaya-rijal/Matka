@@ -4,12 +4,7 @@ import Link from "next/link";
 import { getBlogPostById, blogPosts, getRecentBlogPosts } from "@/data/blog";
 import { notFound } from "next/navigation";
 
-// Remove any custom type definitions for page props
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string }
-}): Promise<Metadata> {
+export async function generateMetadata({ params }) {
   const post = getBlogPostById(params.id);
 
   if (!post) {
@@ -30,15 +25,10 @@ export async function generateStaticParams() {
   }));
 }
 
-// Use the simplest form of props typing
-export default function BlogPostPage({
-  params,
-}: {
-  params: { id: string }
-}) {
+export default async function BlogPostPage({ params }) {
   const { id } = params;
   const blogPost = getBlogPostById(id);
-  
+
   if (!blogPost) {
     notFound();
   }
@@ -301,9 +291,3 @@ export default function BlogPostPage({
     </div>
   );
 }
-
-
-
-
-
-

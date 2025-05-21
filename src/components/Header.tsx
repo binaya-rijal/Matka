@@ -10,8 +10,8 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const searchInputRef = useRef(null);
+  const [searchResults, setSearchResults] = useState<Array<{ title: string; link: string }>>([]);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const { getCartCount } = useCart();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent | { preventDefault: () => void }) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       // In a real application, you would fetch results from an API or search through your data

@@ -51,7 +51,7 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
 

@@ -4,19 +4,13 @@ import { getProductById, products } from "@/data/products";
 import { notFound } from "next/navigation";
 import ProductDetails from "@/components/ProductDetails";
 
-interface ProductPageProps {
-  params: {
-    id: string;
-  };
-}
-
 export async function generateStaticParams() {
   return products.map((product) => ({
     id: product.id,
   }));
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params }) {
   const product = getProductById(params.id);
 
   if (!product) {
