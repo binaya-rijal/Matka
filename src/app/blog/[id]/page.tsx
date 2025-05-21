@@ -4,11 +4,11 @@ import Link from "next/link";
 import { getBlogPostById, blogPosts, getRecentBlogPosts } from "@/data/blog";
 import { notFound } from "next/navigation";
 
-interface BlogPostPageProps {
+type BlogPostPageProps = {
   params: {
     id: string;
   };
-}
+};
 
 export async function generateMetadata({
   params,
@@ -34,13 +34,14 @@ export async function generateStaticParams() {
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getBlogPostById(params.id);
-
-  if (!post) {
+  const { id } = params;
+  const blogPost = getBlogPostById(id);
+  
+  if (!blogPost) {
     notFound();
   }
 
-  const recentPosts = getRecentBlogPosts(3).filter((p) => p.id !== post.id);
+  const recentPosts = getRecentBlogPosts(3).filter((p) => p.id !== blogPost.id);
 
   return (
     <div className="py-16">
@@ -102,7 +103,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                     ></path>
                   </svg>
                   <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2">
-                    {post.title}
+                    {blogPost.title}
                   </span>
                 </div>
               </li>
@@ -116,8 +117,8 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="relative h-64 md:h-96 w-full">
                 <Image
-                  src={post.image}
-                  alt={post.title}
+                  src={blogPost.image}
+                  alt={blogPost.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
@@ -126,25 +127,25 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
               <div className="p-6 md:p-8">
                 <div className="flex flex-wrap gap-4 items-center mb-4">
-                  <span className="text-sm text-gray-500">{post.date}</span>
+                  <span className="text-sm text-gray-500">{blogPost.date}</span>
                   <span className="text-sm bg-gray-100 text-gray-800 px-3 py-1 rounded-full">
-                    {post.category}
+                    {blogPost.category}
                   </span>
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                  {post.title}
+                  {blogPost.title}
                 </h1>
                 <div className="flex items-center mb-6">
                   <div className="w-10 h-10 bg-[#1a472a] text-white rounded-full flex items-center justify-center mr-3">
                     <span className="font-semibold">
-                      {post.author.charAt(0)}
+                      {blogPost.author.charAt(0)}
                     </span>
                   </div>
-                  <span className="text-gray-700">By {post.author}</span>
+                  <span className="text-gray-700">By {blogPost.author}</span>
                 </div>
                 <div
                   className="prose prose-lg max-w-none"
-                  dangerouslySetInnerHTML={{ __html: post.content }}
+                  dangerouslySetInnerHTML={{ __html: blogPost.content }}
                 />
 
                 {/* Social Share */}
@@ -298,3 +299,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     </div>
   );
 }
+
+
+
+
